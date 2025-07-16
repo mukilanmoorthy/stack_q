@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react'; // ⬅️ use this instead
 import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // ✅ Important for Vercel! Always set base to '/'
+  base: '/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
