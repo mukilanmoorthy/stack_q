@@ -15,8 +15,8 @@ sidebar_label: 'Introduction'
 
 | 🔗 Resource     | 📍 Link                                                             |
 |----------------|----------------------------------------------------------------------|
-| 🌐 Live Demo    | [stackquae.vercel.app](https://stackquae.vercel.app) *(or your domain)* |
-| 🛠 GitHub Repo  | [github.com/mukilanm/stackquae](https://github.com/mukilanm/stackquae) |
+| 🌐 Live Demo    | [stackquae.vercel.app](https://stack-q-fo98.vercel.app/) |
+| 🛠 GitHub Repo  | [github.com/mukilanm/stackquae](https://github.com/mukilanmoorthy/stack_q.git) |
 
 You can try Stackquae online or clone the code to start contributing.
 
