@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkyour_docs=self.webpackChunkyour_docs||[]).push([[78],{8788:a=>{a.exports=JSON.parse('{"tags":[{"label":"intro","permalink":"/stack_q/blog/tags/intro","count":1},{"label":"stackquae","permalink":"/stack_q/blog/tags/stackquae","count":1}]}')}}]);
