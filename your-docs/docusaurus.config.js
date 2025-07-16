@@ -7,17 +7,13 @@ const config = {
   tagline: 'Documentation for the Stackquae Blog & Life Routine Platform',
   favicon: 'img/favicon.ico',
 
-  // ✅ URL Settings for GitHub Pages
-  url: 'https://mukilanmoorthy.github.io', // Your GitHub Pages URL
-  baseUrl: '/stack_q/', // Folder name of the repo
+  url: 'https://mukilanmoorthy.github.io',
+  baseUrl: '/stack_q/',
 
-  organizationName: 'mukilanmoorthy', // GitHub username or org
-  projectName: 'stack_q', // Repo name
-  deploymentBranch: 'gh-pages', // Deployment branch
-  trailingSlash: false, // Removes trailing slash from URLs
-
-  // ✅ Optional: Enable SSH deploy if needed
-  // useSSH: true,
+  organizationName: 'mukilanmoorthy',
+  projectName: 'stack_q',
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -32,12 +28,11 @@ const config = {
       'classic',
       {
         docs: {
-          routeBasePath: '/', // Show docs at site root
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/mukilanmoorthy/stack_q/edit/main/docs/', // Update this if docs folder is different
+          editUrl: 'https://github.com/mukilanmoorthy/stack_q/edit/main/docs/',
         },
-        blog: false, // We're not using the blog plugin
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -60,7 +55,7 @@ const config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/mukilanmoorthy/stack_q',
+          href: 'https://github.com/mukilanmoorthy/stack_q', // ✅ FIXED
           label: 'GitHub',
           position: 'right',
         },
@@ -68,7 +63,7 @@ const config = {
     },
     footer: {
       style: 'dark',
-      links: [], // Hides default footer links
+      links: [],
       copyright: `© ${new Date().getFullYear()} Mukilan Moorthy`,
     },
     prism: {
