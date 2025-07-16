@@ -1,9 +1,7 @@
-// ✅ src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { initializeFirestore } from "firebase/firestore";
 
-// ✅ Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAkZmMReNeu6GisiiTegc7ELE-RDIP1f6M",
   authDomain: "stackquae-auth.firebaseapp.com",

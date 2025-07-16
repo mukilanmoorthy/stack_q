@@ -10,6 +10,9 @@ import BlogFeed from "./pages/BlogFeed";
 import LifeTracker from "./pages/LifeTracker";
 import NotFound from "./pages/NotFound";
 import BlogPost from "./pages/BlogPost";
+import Auth from "./pages/Auth";
+import UserProfile from "./pages/UserProfile";
+import { EditProfileDialog } from "@/components/EditProfileDialog";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -25,6 +28,8 @@ const App = () => (
             <Route path="/blog" element={<BlogFeed />} />
             <Route path="/life-tracker" element={<LifeTracker />} />
             <Route path="*" element={<NotFound />} />
+             <Route path="/auth" element={<Auth />} />
+             <Route path="/profile" element={<UserProfile/>}/> 
           </Routes>
       </TooltipProvider>
     </ThemeProvider>

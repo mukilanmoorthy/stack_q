@@ -19,10 +19,10 @@ import {
   ImageIcon,
 } from 'lucide-react';
 import { toast } from 'sonner';
-
 import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/firebase';
 import { supabase } from '@/supabase';
+import { motion } from 'framer-motion';
 
 export default function CreatePost() {
   const navigate = useNavigate();
@@ -124,9 +124,43 @@ export default function CreatePost() {
   if (authLoading) return <p className="p-6 text-center">Loading user info...</p>;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* ⭐ Floating Stars Background */}
+      <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+        {[...Array(50)].map((_, i) => {
+          const size = Math.random() * 3 + 1;
+          const left = Math.random() * 100;
+          const delay = Math.random() * 10;
+          const duration = Math.random() * 10 + 10;
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                left: `${left}%`,
+                bottom: `-30px`,
+                backgroundColor: 'white',
+                boxShadow: '0 0 6px 2px rgba(255, 255, 255, 0.7)',
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ y: -window.innerHeight - 100, opacity: [0, 1, 0] }}
+              transition={{
+                delay,
+                duration,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          );
+        })}
+      </div>
+
       <Header />
-      <main className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+
+      <main className="relative z-10 max-w-4xl mx-auto px-4 py-8 space-y-8">
         <div className="text-center space-y-4">
           <Badge variant="outline" className="border-primary/20 text-primary" />
           <h1 className="text-3xl md:text-4xl font-bold gradient-text">Share Your Story</h1>

@@ -32,31 +32,17 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchAndUpdateBlog = async () => {
       setLoading(true);
-
-      const { data, error } = await supabase
-        .from('blog')
-        .select('*')
-        .eq('id', id)
-        .single();
-
+      const { data, error } = await supabase.from('blog').select('*').eq('id', id).single();
       if (error || !data) {
         setBlog(null);
         setLoading(false);
         return;
       }
-
       setBlog(data);
       setLikeCount(data.likes || 0);
-
-      // Increment views
-      await supabase
-        .from('blog')
-        .update({ views: (data.views || 0) + 1 })
-        .eq('id', id);
-
+      await supabase.from('blog').update({ views: (data.views || 0) + 1 }).eq('id', id);
       setLoading(false);
     };
-
     fetchAndUpdateBlog();
   }, [id]);
 
@@ -93,11 +79,7 @@ const BlogPost = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-muted-foreground">
-        Loading...
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading...</div>;
   }
 
   if (!blog) {
@@ -105,37 +87,24 @@ const BlogPost = () => {
       <div className="min-h-screen flex items-center justify-center text-center">
         <div>
           <h2 className="text-2xl font-bold mb-4">Blog Not Found</h2>
-          <Button onClick={() => navigate('/blog')}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Blog
-          </Button>
+          <Button onClick={() => navigate('/blog')}><ArrowLeft className="w-4 h-4 mr-2" />Back to Blog</Button>
         </div>
       </div>
     );
   }
 
   const publishedDate = new Date(blog.publishedat).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    year: 'numeric', month: 'long', day: 'numeric'
   });
 
   return (
-    <div className="min-h-screen px-4 py-8 max-w-5xl mx-auto">
+    <div className="min-h-screen px-4 py-8 max-w-5xl mx-auto bg-gradient-to-br from-background to-muted/30 rounded-xl shadow-2xl animate-fade-in">
       {blog.cover_url && (
-        <img
-          src={blog.cover_url}
-          alt="cover"
-          className="w-full h-64 object-cover rounded-xl mb-6"
-        />
+        <img src={blog.cover_url} alt="cover" className="w-full h-64 object-cover rounded-xl mb-6 shadow-xl" />
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <Button onClick={() => navigate('/blog')} variant="ghost" className="text-sm">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back
-        </Button>
-
+        <Button onClick={() => navigate('/blog')} variant="ghost" className="text-sm"><ArrowLeft className="w-4 h-4 mr-2" />Back</Button>
         <div className="flex gap-2">
           <Button onClick={handleLike} size="icon" variant="ghost">
             <Heart className={`w-5 h-5 ${isLiked ? 'text-red-500 fill-current' : ''}`} />
@@ -151,65 +120,41 @@ const BlogPost = () => {
 
       <div className="mb-2">
         {blog.tags?.split(',').map((tag, index) => (
-          <Badge key={index} variant="secondary" className="mr-2">
-            #{tag.trim()}
-          </Badge>
+          <Badge key={index} variant="secondary" className="mr-2">#{tag.trim()}</Badge>
         ))}
       </div>
 
-      <h1 className="text-3xl font-bold mb-2">{blog.title}</h1>
+      <h1 className="text-3xl font-bold mb-2 gradient-text drop-shadow-md">{blog.title}</h1>
 
-      <div className="text-sm text-muted-foreground mb-4 flex gap-4">
-        <span className="flex items-center gap-1">
-          <Calendar className="w-4 h-4" />
-          {publishedDate}
-        </span>
-        <span className="flex items-center gap-1">
-          <Clock className="w-4 h-4" />
-          ~5 min read
-        </span>
-        <span className="flex items-center gap-1">
-          <Eye className="w-4 h-4" />
-          {blog.views || 0}
-        </span>
+      <div className="text-sm text-muted-foreground mb-6 flex gap-4">
+        <span className="flex items-center gap-1"><Calendar className="w-4 h-4" />{publishedDate}</span>
+        <span className="flex items-center gap-1"><Clock className="w-4 h-4" />~5 min read</span>
+        <span className="flex items-center gap-1"><Eye className="w-4 h-4" />{blog.views || 0}</span>
       </div>
 
-      {/* ✅ FIXED content display */}
-      <div className="prose dark:prose-invert max-w-none mb-8">
-        <pre className="whitespace-pre-wrap text-base leading-relaxed font-sans">
-          {blog.content}
-        </pre>
-      </div>
+      <Card className="mb-10 bg-white/10 dark:bg-black/10 border-2 border-border/30 shadow-lg backdrop-blur-xl">
+        <CardContent className="p-6">
+          <div className="prose dark:prose-invert max-w-none">
+            <pre className="whitespace-pre-wrap text-base leading-relaxed font-sans">{blog.content}</pre>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Comments Section */}
-      <Card className="mb-8">
+      <Card className="mb-8 bg-muted/20 border border-border/30 backdrop-blur-md shadow-md">
         <CardContent className="p-6">
           <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-            <MessageCircle className="w-5 h-5 text-primary" />
-            Comments ({comments.length})
+            <MessageCircle className="w-5 h-5 text-primary" />Comments ({comments.length})
           </h3>
 
-          <Textarea
-            placeholder="Add a comment..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            className="mb-3"
-          />
-
+          <Textarea placeholder="Add a comment..." value={newComment} onChange={(e) => setNewComment(e.target.value)} className="mb-3" />
           <div className="flex justify-end">
-            <Button onClick={handleCommentSubmit} disabled={!newComment.trim()}>
-              <Send className="w-4 h-4 mr-2" />
-              Comment
-            </Button>
+            <Button onClick={handleCommentSubmit} disabled={!newComment.trim()}><Send className="w-4 h-4 mr-2" />Comment</Button>
           </div>
 
           <div className="mt-6 space-y-4">
             {comments.map((c) => (
               <div key={c.id} className="flex gap-3">
-                <Avatar>
-                  <AvatarImage src={c.author.avatar} />
-                  <AvatarFallback>{c.author.name.charAt(0)}</AvatarFallback>
-                </Avatar>
+                <Avatar><AvatarImage src={c.author.avatar} /><AvatarFallback>{c.author.name.charAt(0)}</AvatarFallback></Avatar>
                 <div>
                   <p className="font-medium text-sm">{c.author.name}</p>
                   <p className="text-sm text-muted-foreground">{c.timestamp}</p>
@@ -221,14 +166,10 @@ const BlogPost = () => {
         </CardContent>
       </Card>
 
-      {/* Author Info */}
       {blog.author_name && (
-        <Card>
+        <Card className="bg-background/80 border border-border/30 shadow-md">
           <CardContent className="p-6 flex items-center gap-4">
-            <Avatar className="w-16 h-16">
-              <AvatarImage src={blog.author_photo} />
-              <AvatarFallback>{blog.author_name.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <Avatar className="w-16 h-16"><AvatarImage src={blog.author_photo} /><AvatarFallback>{blog.author_name.charAt(0)}</AvatarFallback></Avatar>
             <div>
               <h4 className="text-lg font-semibold">{blog.author_name}</h4>
               <p className="text-sm text-muted-foreground">Author</p>

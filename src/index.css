@@ -466,3 +466,22 @@
   .delay-700 { animation-delay: 0.7s; }
   .delay-1000 { animation-delay: 1s; }
 }
+@keyframes dropdown3d {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(-10deg) scale(0.95) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) scale(1) translateY(0);
+  }
+}
+
+.animate-dropdown3d {
+  animation: dropdown3d 0.4s ease-out forwards;
+}
+/* You can add this too for backdrop glass style */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+}
